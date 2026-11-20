@@ -1,0 +1,44 @@
+/* One aligned header, with a separate navigation row when space is limited. */
+.header {
+  width: calc(100% - 32px);
+  max-width: 1280px;
+  min-height: 80px;
+  margin: 12px auto 0;
+  padding: 14px 24px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #e8e1d5;
+  border-radius: 20px;
+  background: #fffaf3f5;
+  box-shadow: 0 4px 16px #372e170a;
+}
+.header .brand { gap: 14px; margin: 0; min-width: 0; }
+.header .logo { font-size: 42px; flex-shrink: 0; }
+.header .brand strong { font-size: 16px; letter-spacing: -.4px; }
+.header .brand small { display: block; margin-top: 3px; font-size: 11px; color: #635e56; }
+.header .desktop-navigation { margin: 0; justify-self: end; width: auto; min-height: 44px; order: 0; }
+.header .desktop-navigation .gooey-nav { min-height: 44px; }
+.header .desktop-navigation .gooey-nav__list { flex-wrap: nowrap; gap: 2px; }
+.header .desktop-navigation .gooey-nav__link { min-height: 44px; padding: 10px 11px !important; font-size: 12px !important; font-weight: 600; color: #514c44; }
+.header .desktop-navigation .gooey-nav__item[data-active] .gooey-nav__link { color: #141413; }
+.header .cv-link { min-height: 44px; padding: 10px 16px; gap: 9px; border-radius: 12px !important; font-size: 13px; box-shadow: 0 2px 4px #8c680d12; }
+.header .cv-link .icon { width: 19px; height: 19px; }
+
+@media (min-width: 681px) and (max-width: 1100px) {
+  .header { grid-template-columns: 1fr auto; gap: 12px 20px; padding: 15px 22px 12px; }
+  .header .cv-link { grid-column: 2; grid-row: 1; }
+  .header .desktop-navigation { grid-column: 1 / -1; grid-row: 2; justify-self: center; display: block; }
+  .header .desktop-navigation .gooey-nav__link { padding: 10px 15px !important; }
+}
+
+@media (max-width: 680px) {
+  .header { width: calc(100% - 24px); min-height: 76px; margin: 10px auto 0; padding: 14px 78px 14px 16px; display: flex; border-radius: 16px; }
+  .header .brand { gap: 10px; }
+  .header .logo { font-size: 34px; letter-spacing: -6px; padding-right: 8px; }
+  .header .brand strong { font-size: clamp(10px, 3vw, 13px); letter-spacing: -.25px; }
+  .header .brand small { font-size: 9px; }
+  .header .desktop-navigation, .header .cv-link { display: none; }
+  .header .mobile-navigation .staggered-menu-header { padding: 34px 28px; }
+}

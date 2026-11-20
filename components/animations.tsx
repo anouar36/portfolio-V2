@@ -1,0 +1,17 @@
+'use client';
+import dynamic from 'next/dynamic';
+import type {ComponentType} from 'react';
+type Effect = ComponentType<Record<string, any>>;
+export const TechText=dynamic(()=>import('./react-bits/TechText'),{ssr:false}) as Effect;
+export const ScrollReveal=dynamic(()=>import('./react-bits/ScrollReveal'),{ssr:false}) as Effect;
+export const RotatingText=dynamic(()=>import('./react-bits/RotatingText'),{ssr:false}) as Effect;
+export const HalftoneReveal=dynamic(()=>import('./react-bits/HalftoneReveal'),{ssr:false}) as Effect;
+export const TargetCursor=dynamic(()=>import('./react-bits/TargetCursor'),{ssr:false}) as Effect;
+export const LaserFlow=dynamic(()=>import('./react-bits/LaserFlow'),{ssr:false}) as Effect;
+export const Crosshair=dynamic(()=>import('./react-bits/Crosshair'),{ssr:false}) as Effect;
+export const Folder=dynamic(()=>import('./react-bits/Folder'),{ssr:false}) as Effect;
+export const StaggeredMenu=dynamic(()=>import('./react-bits/StaggeredMenu'),{ssr:false}) as Effect;
+export const ShapeGrid=dynamic(()=>import('./react-bits/ShapeGrid'),{ssr:false}) as Effect;
+export const GooeyNav=dynamic(()=>import('./react-bits/GooeyNav'),{ssr:false}) as Effect;
+export const PixelCard=dynamic(()=>import('./react-bits/PixelCard'),{ssr:false}) as Effect;
+export const GhostFibers=dynamic(()=>import('./react-bits/GhostFibers'),{ssr:false}) as Effect;
