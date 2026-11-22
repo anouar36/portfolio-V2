@@ -18,6 +18,6 @@ export default function Page(){return <>
 <div className="personal-editorial-copy"><span className="eyebrow">THE PERSON BEHIND THE PIXELS</span><h2 id="personal-title">A little curiosity.<br/><span className="underlined">A lot of care.</span></h2><p>Thoughtful design. Useful code.<br/>A personal touch in everything I build.</p><span className="hand">Let’s create something meaningful.</span></div>
 </section>
 <Contact/>
-</main><footer><span>© 2026 Anouar Ech-Charai</span><span>Made with code, care & a little creativity.</span><a href="#home">Back to top ↑</a></footer>
+</main><footer id="offline" className="offline-footer" aria-label="Offline studio"><iframe src="/offline-footer.html" title="Offline — portfolio links and interactive computer scene" loading="lazy" allow="autoplay" /></footer>
 <div id="toast" role="status" aria-live="polite"></div>
 </>}

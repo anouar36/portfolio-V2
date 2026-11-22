@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Offline — Anouar Ech-Charai</title>
+<style>
+@font-face{font-family:Instrument;src:url('./assets/offline/instrument-serif.woff2') format('woff2');font-display:swap}
+@font-face{font-family:Inter;src:url('./assets/offline/inter.woff2') format('woff2');font-weight:100 900;font-display:swap}
+*{box-sizing:border-box}html,body{margin:0;width:100%;background:#37659f;color:#fff}body{font-family:Inter,Arial,sans-serif}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible{outline:2px solid #fff;outline-offset:7px;border-radius:2px}
+.scene{position:relative;isolation:isolate;height:100svh;min-height:560px;overflow:hidden;background:#37659f;--lit:0}
+.sky,.media,.effects,.tint{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.sky{display:none;z-index:-3}.media{z-index:-2}.media img,.media video{position:absolute;width:100%;height:100%;object-fit:cover;object-position:center bottom}.media video{visibility:hidden}.scene[data-video=true] video{visibility:visible}.tint{z-index:-1;background:linear-gradient(#091d3d5c,transparent 38%)}.effects{z-index:2}
+.content{position:relative;z-index:3;display:grid;grid-template-columns:528fr 404fr 404fr 356fr;gap:0;padding:clamp(45px,4.1vw,100px) 5.52vw 0;text-shadow:0 1px 14px #12326224}
+.brand{padding-right:35px}.power{display:inline-flex;align-items:baseline;gap:0;padding:0;border:0;background:none;color:inherit;font-family:Instrument,Georgia,serif;font-size:clamp(44px,3.05vw,72px);font-weight:400;line-height:1;cursor:pointer;letter-spacing:-.035em}.power-icon{position:relative;display:inline-block;width:.76em;height:.98em;align-self:center;margin-right:.01em;transform-origin:center;transition:transform .18s,filter .3s}.power svg{display:block;width:100%;height:100%;overflow:visible}.halo{opacity:var(--lit);filter:blur(5px)}.power:hover .power-icon{filter:drop-shadow(0 0 9px #fff9)}.power:active .power-icon{transform:scale(.94)}.power:disabled{cursor:default}.power:disabled:hover .power-icon{filter:none}
+.tagline{font-size:clamp(14px,1.025vw,24px);line-height:1.5;max-width:16em;margin:22px 0 0}.copyright{font-size:clamp(11px,.894vw,19px);line-height:1.5;margin:clamp(24px,1.79vw,40px) 0 0;opacity:.83;max-width:27em}
+.column h2{font:400 clamp(26px,1.84vw,43px)/1.1 Instrument,Georgia,serif;margin:4px 0 clamp(24px,2.1vw,46px)}.column ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1vw,24px)}.column a{position:relative;display:inline-block;font-size:clamp(14px,1.025vw,24px);line-height:1.4;padding-bottom:3px}.column a:after{content:'';position:absolute;left:0;right:0;bottom:0;height:max(1px,.084vw);background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .32s}.column a:hover:after,.column a:focus-visible:after{transform:scaleX(1);transform-origin:left}
+.js .reveal{opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s;transition-delay:var(--delay,0ms)}.arrived .reveal{opacity:1;transform:none}
+.motion-control{position:absolute;z-index:4;right:5.52vw;bottom:24px;border:1px solid #ffffff60;background:#0a1b2740;border-radius:30px;color:white;padding:8px 13px;font-size:11px;cursor:pointer;backdrop-filter:blur(5px)}.motion-control[hidden]{display:none}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:760px){
+ .scene{min-height:calc(610px + 76.5vw);height:100svh}.sky{display:block}.media{inset:auto auto 0 50%;width:170%;height:auto;aspect-ratio:16/9;transform:translateX(-50%);mask-image:linear-gradient(transparent,#000 22%)}.tint{background:linear-gradient(#07152e59,transparent 72%)}
+ .content{grid-template-columns:1fr 1fr;gap:36px 24px;padding:38px 28px calc(76.5vw)}.brand{grid-column:1/-1;padding:0}.power{font-size:58px}.tagline{font-size:14px;max-width:280px;margin-top:16px}.copyright{font-size:11px;margin-top:20px}.column h2{font-size:29px;margin:0 0 20px}.column ul{gap:12px}.column a{font-size:14px}.motion-control{right:20px;bottom:20px}
+}
+@media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}.power-icon,.column a:after{transition:none}.media video,.effects,.motion-control{display:none}}
+</style>
+</head>
+<body>
+<footer class="scene" id="scene" data-state="idle" aria-label="Anouar's offline studio footer">
+ <canvas class="sky" aria-hidden="true"></canvas>
+ <div class="media"><img id="poster" src="./assets/offline/poster.jpg" width="1920" height="1080" alt="A beige vintage computer on a grassy hill beneath a blue sky"><video id="video" muted playsinline preload="none" aria-hidden="true"></video></div>
+ <div class="tint"></div><canvas class="effects" aria-hidden="true"></canvas>
+ <div class="content">
+  <div class="brand">
+   <button class="power reveal" type="button" aria-label="Turn the scene on" aria-pressed="false" aria-describedby="power-help"><span class="power-icon" aria-hidden="true"><svg viewBox="0 0 50 62" fill="none"><circle class="halo" cx="25" cy="37" r="19" stroke="white" stroke-width="8"/><g stroke="currentColor" stroke-width="4.6" stroke-linecap="round"><path d="M14.2 22.6 A19 19 0 1 0 35.8 22.6"/><path d="M25 6.5 V33"/></g></svg></span><span aria-hidden="true">ffline</span></button>
+   <p class="tagline reveal">Everything you need to know<br>before you finally log off.</p>
+   <p class="copyright reveal">© 2026 Anouar Ech-Charai.<br>Made with code, care & a little creativity.</p>
+  </div>
+  <div class="column"><h2 class="reveal">Explore</h2><ul><li class="reveal"><a href="/#home" target="_top">My studio</a></li><li class="reveal"><a href="/#projects" target="_top">Selected work</a></li><li class="reveal"><a href="/#skills" target="_top">Skills & tools</a></li><li class="reveal"><a href="/#philosophy" target="_top">My philosophy</a></li></ul></div>
+  <div class="column"><h2 class="reveal">About</h2><ul><li class="reveal"><a href="/#about" target="_top">About me</a></li><li class="reveal"><a href="/#experience" target="_top">Experience</a></li><li class="reveal"><a href="/#education" target="_top">Education</a></li><li class="reveal"><a href="/#contact" target="_top">Let’s talk</a></li></ul></div>
+  <div class="column"><h2 class="reveal">Find me</h2><ul><li class="reveal"><a href="https://www.linkedin.com/in/anouar-ech-charai/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li><li class="reveal"><a href="https://github.com/anouar36" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li><li class="reveal"><a href="mailto:anouarechcharai@gmail.com" target="_top">Email me</a></li></ul></div>
+ </div>
+ <button class="motion-control" type="button" aria-pressed="false" hidden>Pause motion</button>
+ <p class="sr-only" id="power-help">Use the power button to switch between the daytime and nighttime scene.</p>
+ <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+</footer>
+<script>
+(() => {
+ 'use strict';
+ document.documentElement.classList.add('js');
+ const scene=document.querySelector('.scene'), video=document.querySelector('video'), poster=document.querySelector('#poster');
+ const power=document.querySelector('.power'), icon=document.querySelector('.power-icon'), motion=document.querySelector('.motion-control');
+ const effects=document.querySelector('.effects'), sky=document.querySelector('.sky'), ctx=effects.getContext('2d'), skyCtx=sky.getContext('2d');
+ const preference=matchMedia('(prefers-reduced-motion: reduce)'), phone=matchMedia('(max-width:760px)');
+ const status=document.querySelector('#status');
+ let state='idle',arrived=false,visible=false,paused=false,raf=0,last=0,flight=null,landedAt=0,disposed=false;
+ let width=0,height=0,map={x:0,y:0,scale:1},canvasReadable=true;
+ const stars=Array.from({length:22},(_,i)=>({x:((i*47+13)%101)/101,y:((i*31+7)%83)/140,size:.8+(i%4)*.45,phase:i*1.73}));
+ document.querySelectorAll('.reveal').forEach((el,i)=>el.style.setProperty('--delay',`${i*60}ms`));
+ function setState(next){
+  state=next;scene.dataset.state=next;
+  const online=next==='online'||next==='starting';
+  power.setAttribute('aria-pressed',String(online));
+  power.setAttribute('aria-label',online?'Turn the scene off':'Turn the scene on');
+  power.setAttribute('aria-disabled',String(next==='stopping'||next==='starting'));
+ }
+ function resize(){
+  width=scene.clientWidth;height=scene.clientHeight;
+  const dpr=Math.min(devicePixelRatio||1,2);
+  effects.width=Math.round(width*dpr);effects.height=Math.round(height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+  // The sky is deliberately low resolution: the 18px blur makes sampling cheap.
+  sky.width=Math.ceil(width/3);sky.height=Math.ceil(height/3);
+  const box=document.querySelector('.media').getBoundingClientRect(),root=scene.getBoundingClientRect();
+  const scale=Math.max(box.width/1920,box.height/1080);
+  map={scale,x:box.left-root.left+(box.width-1920*scale)/2,y:box.top-root.top+box.height-1080*scale};
+  paintSky();
+ }
+ function paintSky(){
+  if(!phone.matches||!canvasReadable)return;
+  const source=!preference.matches&&video.readyState>=2&&scene.dataset.video==='true'?video:poster;
+  const sw=source.videoWidth||source.naturalWidth,sh=source.videoHeight||source.naturalHeight;
+  if(!sw||!sh)return;
+  try {skyCtx.filter='blur(6px)';skyCtx.drawImage(source,0,0,sw,sh*.2,-12,-12,sky.width+24,sky.height+24);}catch{canvasReadable=false;}
+ }
+ function point(x,y){return{x:map.x+x*map.scale,y:map.y+y*map.scale};}
+ function play(){
+  if(preference.matches||paused||!visible||document.hidden)return;
+  video.play().catch(error=>{
+   if(disposed||error.name==='AbortError')return;
+   if(state==='starting'){setState('idle');status.textContent='Select the power button to switch on the scene.';}
+   else if(state==='stopping'){setState('online');status.textContent='Playback paused. Select the power button to try again.';}
+  });
+ }
+ function start(){
+  if(preference.matches)return;
+  flight=null;landedAt=0;scene.style.setProperty('--lit','0');setState('starting');
+  if(!video.getAttribute('src')){
+   video.src=innerWidth<=900?'./assets/offline/scene-720.mp4':'./assets/offline/scene-1080.mp4';
+   video.load();
+  }
+  if(video.readyState>=1){video.currentTime=.6;play();}
+  requestTick();
+ }
+ video.addEventListener('loadedmetadata',()=>{if(state==='starting'){video.currentTime=.6;play();}});
+ video.addEventListener('loadeddata',()=>{if(!preference.matches)scene.dataset.video='true';paintSky();});
+ video.addEventListener('seeked',paintSky);
+ video.addEventListener('error',()=>{
+  scene.dataset.video='false';video.pause();setState('unavailable');power.disabled=true;motion.hidden=true;
+  status.textContent='The animated scene is unavailable. The still image and all footer links remain available.';paintSky();
+ });
+ function launch(now){flight={start:now,origin:point(945,594)};}
+ function sync(now){
+  if(state==='starting'&&video.currentTime>=2.3){video.pause();video.currentTime=2.3;setState('online');}
+  if(state==='stopping'&&video.currentTime>=4.72&&!flight&&!landedAt)launch(now);
+ }
+ function draw(now){
+  ctx.clearRect(0,0,width,height);
+  const night=Math.max(0,Math.min(1,(video.currentTime-2.7)/1.7));
+  const count=10+Math.round(night*12);
+  for(let i=0;i<count;i++){
+   const star=stars[i],a=(.18+.82*Math.pow((Math.sin(now/1100+star.phase)+1)/2,3))*(.3+night*.5);
+   const x=star.x*width,y=star.y*height,r=star.size*(.65+night*.3);
+   const computer=point(750,450),ground=point(1140,900);
+   if(y>ground.y||(x>computer.x&&x<ground.x&&y>computer.y))continue;
+   ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.beginPath();ctx.moveTo(x,y-r*3);ctx.quadraticCurveTo(x+r*.4,y-r*.4,x+r*3,y);ctx.quadraticCurveTo(x+r*.4,y+r*.4,x,y+r*3);ctx.quadraticCurveTo(x-r*.4,y+r*.4,x-r*3,y);ctx.quadraticCurveTo(x-r*.4,y-r*.4,x,y-r*3);ctx.fill();
+  }
+  if(state==='online'){
+   const p=point(806,505),w=271*map.scale,h=219*map.scale,band=52*map.scale;
+   const y=p.y-band+((now%1800)/1800)*(h+band*2);
+   ctx.save();ctx.beginPath();ctx.roundRect(p.x,p.y,w,h,Math.min(22*map.scale,w/4));ctx.clip();
+   const g=ctx.createLinearGradient(0,y,0,y+band);g.addColorStop(0,'#ffffff00');g.addColorStop(.5,`rgba(255,255,255,${.08+.02*Math.sin(now/67)})`);g.addColorStop(1,'#ffffff00');ctx.fillStyle=g;ctx.fillRect(p.x,y,w,band);ctx.restore();
+  }
+  if(flight){
+   const progress=Math.min(1,(now-flight.start)/780),t=progress<.5?4*progress**3:1-(-2*progress+2)**3/2;
+   const r=icon.getBoundingClientRect(),root=scene.getBoundingClientRect();
+   const end={x:r.left-root.left+r.width/2,y:r.top-root.top+r.height*37/62};
+   const origin=flight.origin,control={x:Math.min(origin.x,end.x)-width*.08,y:Math.min(origin.y,end.y)-height*.12};
+   const x=(1-t)**2*origin.x+2*(1-t)*t*control.x+t*t*end.x,y=(1-t)**2*origin.y+2*(1-t)*t*control.y+t*t*end.y;
+   const core=1.4+Math.sin(progress*Math.PI)*2.1,bloom=core*6;
+   const g=ctx.createRadialGradient(x,y,0,x,y,bloom);g.addColorStop(0,'#fff');g.addColorStop(.14,'#fff');g.addColorStop(.32,'#fff9');g.addColorStop(1,'#fff0');ctx.fillStyle=g;ctx.fillRect(x-bloom,y-bloom,bloom*2,bloom*2);
+   if(progress===1){flight=null;landedAt=now;setState('offline');status.textContent='You’re offline. Take a breath. Select the power button to return.';}
+  }
+  if(landedAt){scene.style.setProperty('--lit',String(.9*Math.max(0,1-(now-landedAt)/900)));}
+ }
+ function tick(now){
+  raf=0;if(disposed||preference.matches||!visible||paused||document.hidden)return;
+  if(now-last>=30){sync(now);paintSky();draw(now);last=now;}
+  raf=requestAnimationFrame(tick);
+ }
+ function requestTick(){if(!raf&&!preference.matches&&visible&&!paused&&!document.hidden)raf=requestAnimationFrame(tick);}
+ function suspend(){video.pause();cancelAnimationFrame(raf);raf=0;}
+ function resume(){if(state==='starting'||state==='stopping')play();requestTick();}
+ power.addEventListener('click',()=>{
+  if(preference.matches||state==='stopping'||state==='starting'||state==='unavailable')return;
+  if(paused){paused=false;motion.textContent='Pause motion';motion.setAttribute('aria-pressed','false');}
+  if(state==='online'){setState('stopping');flight=null;landedAt=0;video.currentTime=2.3;play();requestTick();}
+  else start();
+ });
+ motion.addEventListener('click',()=>{
+  paused=!paused;motion.textContent=paused?'Resume motion':'Pause motion';motion.setAttribute('aria-pressed',String(paused));
+  if(paused)suspend();else {if(flight)flight.start=performance.now();resume();}
+ });
+ const observer=new IntersectionObserver(entries=>{
+  const entry=entries[0];visible=entry.isIntersecting;
+  if(!arrived&&entry.intersectionRatio>=.35){arrived=true;scene.classList.add('arrived');if(!preference.matches)start();}
+  if(visible&&arrived)resume();else suspend();
+ },{threshold:[0,.35]});observer.observe(scene);
+ function applyPreference(){
+  power.disabled=preference.matches;motion.hidden=preference.matches;
+  if(preference.matches){suspend();video.removeAttribute('src');video.load();scene.dataset.video='false';flight=null;landedAt=0;scene.style.setProperty('--lit','0');setState('static');power.setAttribute('aria-label','Offline scene — reduced motion');scene.classList.add('arrived');ctx.clearRect(0,0,width,height);paintSky();}
+  else if(arrived)start();
+ }
+ preference.addEventListener('change',applyPreference);
+ document.addEventListener('visibilitychange',()=>document.hidden?suspend():resume());
+ const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(scene);
+ poster.addEventListener('load',paintSky);resize();applyPreference();
+ // Same-origin section links retain the portfolio's state and avoid reloading it.
+ document.querySelectorAll('a[href^="/#"]').forEach(link=>link.addEventListener('click',event=>{
+  if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||window.parent===window)return;
+  const target=parent.document.getElementById(link.hash.slice(1));if(!target)return;
+  event.preventDefault();target.setAttribute('tabindex','-1');target.focus({preventScroll:true});target.scrollIntoView({behavior:preference.matches?'instant':'smooth',block:'start'});
+ }));
+ addEventListener('pagehide',()=>{disposed=true;suspend();observer.disconnect();resizeObserver.disconnect();});
+})();
+</script>
+</body>
+</html>

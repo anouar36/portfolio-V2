@@ -1,5 +1,11 @@
 # Animation integration and verification
 
+## 21 November 2026 — Exit after the final project
+
+Forward navigation from project 3 now releases the scene and scrolls to About Me. Wheel, swipe, keyboard, the laptop-screen control and the next button share the same bounded navigation handler. The final button and screen-reader announcement identify the exit. Returning upward keeps the last project available.
+
+Validation: TypeScript and production build; the local browser smoke test was unavailable because port 4173 refused the connection.
+
 ## 20 November 2026 — Laptop Dive update
 
 The original hero has been replaced by `LaptopExperience`. Its entrance, suspended badge, perspective laptop transition, three illustrative project screens, case tickets, previous/next navigation, return transition, escape links, and reduced-motion handling are implemented locally. The earlier ShapeGrid hero and RotatingText profession are no longer mounted on the home section.
